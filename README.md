@@ -1,4 +1,4 @@
-# OpenAI API Quickstart - Python example app
+# Ecommerce Quickstart - Python example app
 
 ## Setup
 
