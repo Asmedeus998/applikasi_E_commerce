@@ -1,4 +1,4 @@
-# Ecommerce Quickstart - Python example app
+# Ecommerce Quickstart Guide
 
 ## Setup
 
