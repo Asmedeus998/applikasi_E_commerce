@@ -25,3 +25,17 @@
    $ pip install -r requirements.txt
    ```
 
+
+6. Migrate database
+
+   ```python
+   python manage.py migrate
+   ```
+
+7. Run django in local
+
+   ```python
+   python manage.py runserver
+   ```
+
+
