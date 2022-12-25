@@ -2,40 +2,54 @@
 
 ## Setup
 
-1. download Python 3.8
+1. download [Python]
+2. download [pgadmin](https://www.pgadmin.org/download/)
+3. download [postgresql](https://www.postgresql.org/download/)
 
-2. Clone this repository
+4. Clone this repository
 
-3. Navigate into the project directory
+5. Navigate into the project directory
 
-   ```bash
-   $ cd applikasi_E_commerce
+   ```python
+   cd applikasi_E_commerce
    ```
 
-4. Create a new virtual environment
+6. Create a new virtual environment
 
-   ```bash
-   $ python -m venv venv
-   $ . venv/bin/activate
+   ```python
+   python -m venv venv
+   .\venv\Scripts\activate
    ```
 
-5. Install the requirements
+7. Install the requirements
 
-   ```bash
-   $ pip install -r requirements.txt
+   ```python
+   pip install --upgrade pip  
+   pip install -r requirements.txt
+   pip freeze
    ```
 
 
-6. Migrate database
+8. Migrate database
 
    ```python
    python manage.py migrate
    ```
 
-7. Run django in local
+9. Run django in local
 
    ```python
    python manage.py runserver
    ```
 
+10. (optional) Jika ketemu database error karena dari sqllite ke postgresql:
+- open pgadmin
+- create database `skripsi` berdasarkan setting.py di folder appilikasi_E_commerce
+- habis itu cari `Login/Group Roles` > create > `Login/Group roles`
+- masukkan `username` di bagian General 
+- masukkan `password` di bagian Definition
 
+11. migrate sekali lagi:
+   ```python
+   python manage.py migrate
+   ```
