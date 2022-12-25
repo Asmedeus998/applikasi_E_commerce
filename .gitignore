@@ -1,2 +1,6 @@
 .vscode
 venv
+db.sqlite3
+*.pyc
+/media
+__pycache__/

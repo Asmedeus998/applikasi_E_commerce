@@ -42,4 +42,14 @@
    python manage.py runserver
    ```
 
+10. (optional) Jika ketemu database error karena dari sqllite ke postgresql:
+- open pgadmin
+- create database `skripsi` berdasarkan setting.py di folder appilikasi_E_commerce
+- habis itu cari `Login/Group Roles` > create > `Login/Group roles`
+- masukkan `username` di bagian General 
+- masukkan `password` di bagian Definition
 
+11. migrate sekali lagi:
+   ```python
+   python manage.py migrate
+   ```
