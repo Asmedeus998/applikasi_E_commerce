@@ -1,0 +1,14 @@
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="content-section col-md-8 col-md-offset-2">
+    <center>
+      <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        {% crispy form %}
+    </form>
+  </center>
+   </div>
+  
+{% endblock content %}

@@ -28,6 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+SITE_ID = 1
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store',
-    'fontawesomefree'
+    'fontawesomefree',
+    'crispy_forms',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +56,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 ROOT_URLCONF = 'applikasi_E_commerce.urls'
@@ -148,3 +163,16 @@ if not DEBUG:
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = 'media'
+
+LOGIN_REDIRECT_URL="/"
+DEFAULT_FROM_EMAIL = 'no-reply@lawn.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1015
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
+
+ACCOUNT_FORMS = {'signup': 'store.forms.CustomSignupForm'}
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION  = 'mandatory'
+# ACCOUNT_SIGNUP_REDIRECT_URL = LOGIN_REDIRECT_URL
