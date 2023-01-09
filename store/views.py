@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from .models import * 
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, logout
 # Create your views here.
 def store(request):
 	context = {}
@@ -21,3 +24,4 @@ def cart(request):
 def checkout(request):
 	context = {}
 	return render(request, 'store/checkout.html',context)
+
