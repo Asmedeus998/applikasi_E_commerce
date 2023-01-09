@@ -3,6 +3,11 @@ from django.contrib.auth.models import User
 from uuid import uuid4
 # Create your models here.
 
+ROLE = {
+	('buyer', 'buyer'),
+	('seller', 'seller')
+}
+
 def get_fileupload_path(instance, filename):
 	ext = filename.split('.')[-1]
 	filename = "%s.%s" % (uuid4(), ext)
@@ -19,6 +24,7 @@ class Customer(models.Model):
 	foto = models.ImageField(
 		upload_to=get_fileupload_path, null=True, blank=True
 	)
+	role = models.CharField(max_length=20, choices=ROLE, null=True)
 	class Meta:
 		verbose_name = 'Customer'
 		verbose_name_plural = 'Data Customer'
