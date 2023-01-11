@@ -19,13 +19,11 @@ from django.contrib import admin
 from django.urls import path, include
 from store import views as user_view
 from django.contrib.auth import views as auth
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('', user_view.store, name='store'),
     path('admin/', admin.site.urls),
     path('store/', include('store.urls')),
-    # path('login/', user_view.Login, name ='login'),
-    # path('logout/', auth.LogoutView.as_view(template_name ='store/store.html'), name ='logout'),
-    # path('register/', user_view.register, name ='register'),
     path('accounts/', include('allauth.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, )

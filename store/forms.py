@@ -45,7 +45,7 @@ class CustomerForm(forms.ModelForm):
 		model = Customer
 		# fields = "__all__"
 		fields = [
-			'name', 'email', 'date_of_birth', 
+			'name', 'email', 
 			'address', 'role', 'foto',	
 		]
 	def __init__(self, *args, **kwargs):
@@ -56,7 +56,7 @@ class CustomerForm(forms.ModelForm):
 		self.helper.layout = Layout(
 			'name', 
 			'email', 
-			'date_of_birth', 
+			# 'date_of_birth', 
 			'address',  
 			'foto',
 			'role', 
