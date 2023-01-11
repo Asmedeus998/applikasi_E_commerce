@@ -11,22 +11,36 @@ from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.models import User
 from .forms import CustomerForm
+from .utils import cookieCart, cartData, guestOrder
+
 # Create your views here.
 def store(request):
-	context = {}
-	return render(request, 'store/store.html',context)
+	# if data == '':
+	# 	cartItems = None
+	# else:
+	# 	cartItems = None
+	data = cartData(request)
+	cartItems = data['cartItems']
+	order = data['order']
+	items = data['items']
+
+	products = Product.objects.all()
+	context = {'products':products, 'cartItems':cartItems}
+
+	return render(request, 'store/store.html', context)
 
 def cart(request):
-	items = []
-	if request.user.is_authenticated:
-		customer = request.user.customer
-		order, created = Order.objects.get_or_create(customer=customer, complete=False)
-		# items = order.orderitem_set.all()
-	else:
-		#Create empty cart for now for non-logged in user
-		order = {'get_cart_total':0, 'get_cart_items':0}
+	data = cartData(request)
 
-	context = {'items':items, 'order':order}
+	cartItems = data['cartItems']
+	order = data['order']
+	items = data['items']
+
+	context = {
+	'items':items, 
+	'order':order, 
+	'cartItems':cartItems
+	}
 	return render(request, 'store/cart.html',context)
 
 def checkout(request):

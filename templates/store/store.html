@@ -1,17 +1,17 @@
-{% extends "main.html" %}
+{% extends 'store/main.html' %}
 
 {% block content %}
 <div class="row">
-    <div class="col-lg-4">
-    <div class="box-element product">
-        <img class="thumbnail" src="" alt=""> 
-        <h6><strong>testing product</strong></h6>
-        <hr>
-        <button data-product="001" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+    {% comment %} <div class="col-lg-4">
+        <div class="box-element product">
+            <img class="thumbnail" src="" alt=""> 
+            <h6><strong>testing product</strong></h6>
+            <hr>
+            <button data-product="001" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
 
-        <a class="btn btn-outline-success" href="#">View</a>
-        <h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
-    </div>
+            <a class="btn btn-outline-success" href="#">View</a>
+            <h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
+        </div>
     </div>
 
     <div class="col-lg-4">
@@ -24,53 +24,53 @@
             <a class="btn btn-outline-success" href="#">View</a>
             <h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
         </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="box-element product">
+            <i class="fa fa-archive fa-6" aria-hidden="true"></i>
+            <h6><strong>testing product</strong></h6>
+            <hr>
+            <button data-product="001" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+    
+            <a class="btn btn-outline-success" href="#">View</a>
+            <h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
         </div>
+    </div>
 
-        <div class="col-lg-4">
-            <div class="box-element product">
-                <i class="fa fa-archive fa-6" aria-hidden="true"></i>
-                <h6><strong>testing product</strong></h6>
-                <hr>
-                <button data-product="001" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-        
-                <a class="btn btn-outline-success" href="#">View</a>
-                <h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
-            </div>
-            </div>
+    <div class="col-lg-4">
+        <div class="box-element product">
+            <i class="fa fa-archive fa-6" aria-hidden="true"></i>
+            <h6><strong>testing product</strong></h6>
+            <hr>
+            <button data-product="001" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+    
+            <a class="btn btn-outline-success" href="#">View</a>
+            <h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
+        </div>
+    </div>
 
-            <div class="col-lg-4">
-                <div class="box-element product">
-                    <i class="fa fa-archive fa-6" aria-hidden="true"></i>
-                    <h6><strong>testing product</strong></h6>
-                    <hr>
-                    <button data-product="001" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-            
-                    <a class="btn btn-outline-success" href="#">View</a>
-                    <h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
-                </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="box-element product">
-                        <i class="fa fa-archive fa-6" aria-hidden="true"></i>
-                        <h6><strong>testing product</strong></h6>
-                        <hr>
-                        <button data-product="001" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                
-                        <a class="btn btn-outline-success" href="#">View</a>
-                        <h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
-                    </div>
-                    </div>
+    <div class="col-lg-4">
+        <div class="box-element product">
+            <i class="fa fa-archive fa-6" aria-hidden="true"></i>
+            <h6><strong>testing product</strong></h6>
+            <hr>
+            <button data-product="001" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+    
+            <a class="btn btn-outline-success" href="#">View</a>
+            <h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
+        </div>
+    </div> {% endcomment %}
 
 
 
     {% for product in products %}
     <div class="col-lg-4">
-        <img class="thumbnail" src="{{product.imageURL}}">
+        <img class="thumbnail" src="{{product.imageURL}}" width="300" height="400">>
         <div class="box-element product">
             <h6><strong>{{product.name}}</strong></h6>
             <hr>
-
+            <h6><strong>{{product.id}}</strong></h6>
             <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
             
             <a class="btn btn-outline-success" href="#">View</a>
