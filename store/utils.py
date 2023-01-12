@@ -44,7 +44,9 @@ def cookieCart(request):
 def cartData(request):
 	if request.user.is_authenticated:
 		customer = request.user.customer
+		# print(customer)
 		order, created = Order.objects.get_or_create(customer=customer, complete=False)
+		# print(order)
 		items = order.orderitem_set.all()
 		cartItems = order.get_cart_items
 	else:

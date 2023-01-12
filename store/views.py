@@ -15,10 +15,6 @@ from .utils import cookieCart, cartData, guestOrder
 
 # Create your views here.
 def store(request):
-	# if data == '':
-	# 	cartItems = None
-	# else:
-	# 	cartItems = None
 	data = cartData(request)
 	cartItems = data['cartItems']
 	order = data['order']
@@ -36,6 +32,8 @@ def cart(request):
 	order = data['order']
 	items = data['items']
 
+	if request.method == 'POST':
+		print(request.POST)
 	context = {
 	'items':items, 
 	'order':order, 
@@ -82,3 +80,31 @@ def ProfileView(request):
 
 	}
 	return render(request, 'account/profile.html', context)
+
+def cart_add(request):
+	data = []
+	if request.method =="POST":
+		print(request.POST)
+	data = {
+		'post':request.POST
+	}
+		
+	
+	return JsonResponse(data)
+
+import json
+from django.http import JsonResponse
+
+def update_item(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        product_id = data.get('productId')
+        action = data.get('action')
+
+        # Perform logic to update user's order based on product ID and action
+        # ...
+
+        # Return a JSON response indicating that the update was successful
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
