@@ -80,17 +80,19 @@ def ProfileView(request):
 
 	}
 	return render(request, 'account/profile.html', context)
-
+import json
 def cart_add(request):
-	data = []
+	# data = []
 	if request.method =="POST":
-		print(request.POST)
-	data = {
-		'post':request.POST
-	}
-		
-	
-	return JsonResponse(data)
+		print(f'request: {request.body}')
+		data = json.loads(request.body.decode("utf-8") )
+		return JsonResponse({'success': True, 'data': data})
+		# return JsonResponse({'success': True,})
+
+	# if request.method =="GET":
+	# 	data = json.loads(request.body) 
+	# 	return JsonResponse({'success': True, 'data': data})
+
 
 import json
 from django.http import JsonResponse
