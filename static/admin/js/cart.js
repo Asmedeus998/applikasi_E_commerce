@@ -3,11 +3,10 @@ var updateBtns = document.getElementsByClassName('update-cart')
 for (i = 0; i < updateBtns.length; i++) {
 	updateBtns[i].addEventListener('click', function(){
 		var productId = this.dataset.product
-		// console.log(productId)
 		var action = this.dataset.action
 		// console.log('productId:', productId, 'Action:', action)
 		// console.log('USER:', user)
-
+		console.log($('input[csrfmiddlewaretoken]').val())
 		if (user == 'AnonymousUser'){
 			addCookieItem(productId, action)
 		}else{
@@ -18,20 +17,22 @@ for (i = 0; i < updateBtns.length; i++) {
 
 function updateUserOrder(productId, action){
 	console.log('User is authenticated, sending data...')
-
 		var url = '/store/cart_add/'
-		// var product_id = $(this).closest('.product_data').find('.prod_id').val();
-		// var product_qty = $(this).closest('.product_data').find('.prod_id').val();
-		var token = $('input[csrfmiddlewaretoken]').val()
+		obj = {'productId':productId, 'action':action}
 		$.ajax({
 			url: url,
 			type: 'POST',
+			headers: { "X-CSRFToken": $.cookie("csrftoken") },
+			/* sendingn in json  */
+			// contentType: 'application/json',
+			// data:JSON.stringify(obj),
+			
+			/* sendingn in form  */
+			contentType: 'multipart/form-data',
 			data: {
 				'productId':productId,
-				'action':action,
-				'csrfmiddlewaretoken':token,
+				'action':action,				
 			},
-			dataType: "dataType",
 			success: function (data) {
 			  console.log(data)
 			},

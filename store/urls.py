@@ -13,5 +13,5 @@ urlpatterns = [
     path('checkout/', checkout, name='checkout'),
     # path('profile/', ProfileView.as_view(), name='profile')
     path('profile/', ProfileView, name='profile'),
-    path('cart_add/', update_item, name='cart_add')
+    path('cart_add/', cart_add, name='cart_add')
 ]
