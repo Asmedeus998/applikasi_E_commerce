@@ -23,12 +23,16 @@ function updateUserOrder(productId, action){
 			url: url,
 			type: 'POST',
 			headers: { "X-CSRFToken": $.cookie("csrftoken") },
-			contentType: 'application/json',
-			// data: {
-			// 	'productId':productId,
-			// 	'action':action,				
-			// },
-			data:JSON.stringify(obj),
+			/* sendingn in json  */
+			// contentType: 'application/json',
+			// data:JSON.stringify(obj),
+			
+			/* sendingn in form  */
+			contentType: 'multipart/form-data',
+			data: {
+				'productId':productId,
+				'action':action,				
+			},
 			success: function (data) {
 			  console.log(data)
 			},
