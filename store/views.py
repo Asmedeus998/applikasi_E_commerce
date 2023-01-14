@@ -82,10 +82,28 @@ def ProfileView(request):
 	return render(request, 'account/profile.html', context)
 import json
 def cart_add(request):
-	# data = []
+	data = cartData(request)
+	customer = request.user.customer
+	print(customer)
 	if request.method =="POST":
-		print(f'request: {request.body}')
+		# print(f'request: {request.body}')
 		data = json.loads(request.body.decode("utf-8") )
+		# print(data['productId'])
+		# print(data['action'])
+		obj, created =  Order.objects.get_or_create(customer=customer, complete=False)
+		# print(obj)
+		item = OrderItem.objects.get_or_create(product_id=data['productId'], order=obj)
+		# print(item)
+		if data['action'] == 'add':
+			add = OrderItem.objects.get(product_id=data['productId'], order=obj)
+			add_quantity = 1
+			add.quantity += add_quantity
+			add.save()
+		elif data['action'] =='remove':
+			sub = OrderItem.objects.get(product_id=data['productId'], order=obj)
+			sub_quantity = 1
+			sub.quantity -= sub_quantity
+			sub.save()
 		return JsonResponse({'success': True, 'data': data})
 		# return JsonResponse({'success': True,})
 

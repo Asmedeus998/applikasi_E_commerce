@@ -4,12 +4,12 @@ from .models import *
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['user', 'name', 'role', 'email', 'address', 'foto']
+    list_display = ['id', 'user', 'name', 'role', 'email', 'address', 'foto']
     list_editable = ['name', 'role', 'email', 'address', 'foto']
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'digital', 'image']
+    list_display = ['id', 'name', 'price', 'digital', 'image']
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -19,10 +19,10 @@ class CategoryAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     list_display = [
         # 'customer', 
-        'date_ordered', 'complete', 'transaction_id']
+        'id', 'date_ordered', 'complete', 'transaction_id']
 
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ['product', 'order', 'quantity', 'date_added']
+    list_display = ['id','product', 'order', 'quantity', 'date_added']
 
