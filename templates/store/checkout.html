@@ -71,7 +71,11 @@
 	<script type="text/javascript">
 		var shipping = '{{order.shipping}}'
 		var total = '{{order.get_cart_total|floatformat:2}}'
-
+		var user = '{{request.user}}' 
+		//console.log(user)
+		//console.log(request.user.email)
+		//console.log(userFormData.name)
+		//console.log(document.getElementById('user-info').innerHTML)
 		if (shipping == 'False'){
 		 	document.getElementById('shipping-info').innerHTML = ''
 		}
@@ -125,12 +129,14 @@
 	    	if (user == 'AnonymousUser'){
 	    		userFormData.name = form.name.value
 	    		userFormData.email = form.email.value
+	    		//userFormData.name = request.user.username
+	    		//userFormData.email = request.user.email
 	    	}
 
 	    	console.log('Shipping Info:', shippingInfo)
 	    	console.log('User Info:', userFormData)
 
-	    	var url = "/process_order/"
+	    	var url = "/store/process_order/"
 	    	fetch(url, {
 	    		method:'POST',
 	    		headers:{
@@ -153,6 +159,7 @@
 				})
 	    }
 	</script>
+	
 {% endblock content %}
 
 
