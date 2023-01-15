@@ -71,7 +71,7 @@ class Order(models.Model):
 	@property
 	def get_cart_total(self):
 		total = sum([item.get_total for item in self.orderitem_set.all()])
- # type: ignore		return total
+		return total
 
 
 	@property
