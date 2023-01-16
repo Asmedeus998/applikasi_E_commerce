@@ -5,7 +5,7 @@
 		<div class="col-lg-6">
 			<div class="box-element" id="form-wrapper">
 				<form id="form">
-					<div id="user-info">
+					{% comment %} <div id="user-info">
 						<div class="form-field">
 							<input required class="form-control" type="text" name="name" placeholder="Name..">
 						</div>
@@ -13,7 +13,7 @@
 							<input required class="form-control" type="email" name="email" placeholder="Email..">
 						</div>
 					</div>
-					
+					 {% endcomment %}
 					<div id="shipping-info">
 						<hr>
 						<p>Shipping Information:</p>
@@ -42,7 +42,7 @@
 
 			<br>
 			<div class="box-element hidden" id="payment-info">
-				<small>Paypal Options</small>
+				<small>Payment Options</small>
 				<button id="make-payment">Make payment</button>
 			</div>
 			
@@ -80,9 +80,9 @@
 		 	document.getElementById('shipping-info').innerHTML = ''
 		}
 
-		if (user != 'AnonymousUser'){
-		 	document.getElementById('user-info').innerHTML = ''
-		 }
+		//if (user != 'AnonymousUser'){
+		// 	document.getElementById('user-info').innerHTML = ''
+		// }
 
 		if (shipping == 'False' && user != 'AnonymousUser'){
 			//Hide entire form if user is logged in and shipping is false
@@ -107,8 +107,8 @@
 	    	console.log('Payment button clicked')
 
 	    	var userFormData = {
-				'name':null,
-				'email':null,
+				//'name':null,
+				//'email':null,
 				'total':total,
 			}
 
@@ -143,7 +143,9 @@
 	    			'Content-Type':'applicaiton/json',
 	    			'X-CSRFToken':csrftoken,
 	    		}, 
-	    		body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
+	    		body:JSON.stringify({
+					'form':userFormData, 
+					'shipping':shippingInfo}),
 	    		
 	    	})
 	    	.then((response) => response.json())

@@ -19,7 +19,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     list_display = [
         # 'customer', 
-        'id', 'date_ordered', 'complete', 'transaction_id']
+        'id', 'customer', 'date_ordered', 'complete', 'transaction_id']
 
 
 @admin.register(OrderItem)
