@@ -86,6 +86,21 @@ def ProfileView(request):
 
 	}
 	return render(request, 'account/profile.html', context)
+
+def history_transaction(request):
+	# cus = Customer.objects.objects.get(customer=request.user.customer)
+	hist = Order.objects.filter(customer=request.user.customer, complete=True).order_by('-transaction_id')
+	# total = Order.objects.get(customer=request.user.customer)
+	# print(hist)
+	# try:
+	# except:
+	# 	pass
+	context ={
+		'hist':hist,
+		# 'total': total
+	}
+	return render(request, 'account/history_transaction.html', context)
+
 import json
 def cart_add(request):
 	data = cartData(request)

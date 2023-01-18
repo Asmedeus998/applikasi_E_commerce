@@ -5,3 +5,5 @@ db.sqlite3
 /media
 __pycache__/
 *.sqlite3
+store/__pycache__/urls.cpython-38.pyc
+store/__pycache__/*

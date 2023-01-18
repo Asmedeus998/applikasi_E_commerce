@@ -6,7 +6,8 @@ from store.views import (
     ProfileView,
     cart_add,
     update_item,
-    processOrder
+    processOrder,
+    history_transaction
 )
 from django.urls import path, include
 urlpatterns = [
@@ -16,4 +17,5 @@ urlpatterns = [
     path('profile/', ProfileView, name='profile'),
     path('cart_add/', cart_add, name='cart_add'),
     path('process_order/', processOrder, name="process_order"),
+    path('history_transaction/', history_transaction, name='history_transaction')
 ]

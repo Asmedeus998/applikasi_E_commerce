@@ -1,0 +1,66 @@
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block content %}
+    <h2 class="justify-content-center mb-4">History Transaction</h2>
+      <table class="table  table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Transaction ID</th>
+            <th scope="col">Product </th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total Item Price</th>
+            <th scope="col">Total Transaction Price</th>
+          </tr>
+        </thead>
+        <tbody class="table-secondary">
+            {% for item in hist %}
+                <tr>
+                    {% if item. %}{% endif %}
+                    <td>
+                        {{forloop.counter}}                        
+                    </td>
+                    <td>
+                        {{item.transaction_id}}
+                    </td>
+                    <td>
+                        {% for p in item.orderitem_set.all %}
+                            <p>
+                                {{p.product.name}}
+                            </p> 
+                        {% endfor %}                        
+                    </td>
+                    <td>
+                        {% for p in item.orderitem_set.all %}
+                            <p>
+                                {{p.quantity}}
+                            </p> 
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for p in item.orderitem_set.all %}
+                            <p>
+                                {{p.product.price}}
+                            </p> 
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for p in item.orderitem_set.all %}
+                            <p>
+                                 {{p.get_total}}
+                            </p> 
+                            {% endfor %}                        
+                    </td>
+                    <td>
+                        {{item.get_cart_total}}
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+      </table>
+{% endblock %}
+
