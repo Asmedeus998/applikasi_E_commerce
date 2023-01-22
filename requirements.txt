@@ -19,3 +19,7 @@ django-star-ratings==0.9.2
 reportlab==3.5.34
 fontawesomefree
 django-allauth==0.50.0
+scikit-learn==1.2.0
+pandas==1.5.3
+SQLAlchemy==1.4.46
+ipython-sql==0.4.1

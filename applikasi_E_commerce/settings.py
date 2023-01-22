@@ -164,7 +164,7 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = 'media'
 
-LOGIN_REDIRECT_URL="/"
+LOGIN_REDIRECT_URL="/store/homepage/"
 DEFAULT_FROM_EMAIL = 'no-reply@lawn.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
@@ -175,4 +175,4 @@ EMAIL_USE_SSL = False
 ACCOUNT_FORMS = {'signup': 'store.forms.CustomSignupForm'}
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION  = 'mandatory'
-# ACCOUNT_SIGNUP_REDIRECT_URL = LOGIN_REDIRECT_URL
+# ACCOUNT_SIGNUP_REDIRECT_URL = '/store/profile/'

@@ -1,0 +1,31 @@
+{% extends "user/main_homepage.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<div class="row row-profile">
+    <div class="col-md-3 mb-5 mb-md-0">
+        {% comment %} {% include "account/profile_sidebar.html" %} {% endcomment %}
+    </div>
+    <div class="col-md-9">
+        <div>
+            <h3 class="text-accent font-weight-semibold mb-3 float-left">My Profile</h3>
+        </div>
+        <div class="clearfix"></div>
+        {{user.name }}
+        {{user.email }}
+        {{user.address }}
+        {{user.role }}
+        {% if user.foto != none %}
+        {{user.foto }}        
+        {% else %}
+        {% comment %} {{ <img src="../media" alt=""> }} {% endcomment %}
+        {% comment %} url("{% static "login.webp" %}"); {% endcomment %}
+        {% comment %} {% static 'admin/img/login.webp' %}" {% endcomment %}
+        {% comment %} <img src="C:/Users/User/Documents/GitHub/applikasi_E_commerce/static/admin/img/login.webp" alt=""> {% endcomment %}
+        {% comment %} <img src= {{C:/Users/User/Documents/GitHub/applikasi_E_commerce/media/Nvidia-RTX-2080-1372439263.jpg}} alt=""> {% endcomment %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
