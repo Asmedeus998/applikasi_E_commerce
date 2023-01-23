@@ -1,6 +1,7 @@
 {% extends 'store/main.html' %}
-
 {% block content %}
+{% load static %}
+<link href="{% static '../../../media/css/homepage.css' %}" rel="stylesheet" type="text/css">
 <div class="row">
     {% comment %} <div class="col-lg-4">
         <div class="box-element product">
@@ -63,21 +64,39 @@
     </div> {% endcomment %}
 
 
-    {% for product in products %}
-    <div class="col-lg-4">
-        <img class="thumbnail" src="{{product.imageURL}}" width="300" height="400">>
-        <div class="box-element product">
-            <h6><strong>{{product.name}}</strong></h6>
-            <hr>
-            <h6><strong>{{product.id}}</strong></h6>
-            {% csrf_token %}
-            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-            
-            <a class="btn btn-outline-success" href="#">View</a>
-            <h4 style="display: inline-block; float: right"><strong>${{product.price}}</strong></h4>
-
+    <div class="container-xl">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Featured <b>Products</b></h2>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+                <div class="carousel-inner">
+                    <div class="item carousel-item active">
+                        <div class="row">
+                            {% for product in products %}
+                            <div class="col-sm-3">
+                                <div class="thumb-wrapper">
+                                    <div class="img-box">
+                                        <img src="{{product.imageURL}}" class="img-fluid" alt="">									
+                                    </div>
+                                    <div class="thumb-content">
+                                        <h4>{{product.name}}</h4>									
+                                        <div class="star-rating">
+                                            <ul class="list-inline">
+                                            </ul>
+                                        </div>
+                                        <p class="item-price"><b>{{product.price}}</b></p>
+                                        {% csrf_token %}
+                                        <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                                    </div>						
+                                </div>
+                            </div>
+                            {% endfor %}   
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
         </div>
     </div>
-    {% endfor %}
 </div>
 {% endblock content %}
