@@ -130,16 +130,21 @@ def checkout(request):
 
 def ProfileView(request):
 	
-	user = Customer.objects.get(user=request.user)
-
+	customer = Customer.objects.get(user = request.user)
+	data = cartData(request)
+	cartItems = data['cartItems']
+	
 	context = {
-		'user':user,
+		'customer':customer,
+		'cartItems':cartItems
 	}
 	return render(request, 'user/display_profile.html', context)
 
 def ProfileChange(request):
 	obj, created = Customer.objects.get_or_create(user=request.user)
 	profile_form = CustomerForm()
+	data = cartData(request)
+	cartItems = data['cartItems']
 
 	if request.method == 'POST':
 	# # print(request.headers)
@@ -154,14 +159,19 @@ def ProfileChange(request):
 			profile_form = CustomerForm()
 	context = {
 		'form': profile_form,
+		'cartItems': cartItems
 
 	}
 	return render(request, 'account/profile.html', context)
 
 def history_transaction(request):
+	data = cartData(request)
+	cartItems = data['cartItems']
+
 	hist = Order.objects.filter(customer=request.user.customer, complete=True).order_by('-transaction_id')
 	context ={
 		'hist':hist,
+		'cartItems':cartItems
 	}
 	return render(request, 'user/history_transaction.html', context)
 
