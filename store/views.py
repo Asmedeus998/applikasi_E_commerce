@@ -15,6 +15,7 @@ import datetime
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
 
 @login_required
 def homepage(request):
@@ -129,7 +130,6 @@ def checkout(request):
 # 		return context
 
 def ProfileView(request):
-	
 	customer = Customer.objects.get(user = request.user)
 	data = cartData(request)
 	cartItems = data['cartItems']
@@ -162,7 +162,7 @@ def ProfileChange(request):
 		'cartItems': cartItems
 
 	}
-	return render(request, 'account/profile.html', context)
+	return render(request, 'user/profile.html', context)
 
 def history_transaction(request):
 	data = cartData(request)
@@ -254,3 +254,41 @@ def processOrder(request):
 	)
 
 	return JsonResponse('Payment submitted..', safe=False)
+
+
+
+def search(request):
+	query = request.GET.get('q')
+	if not query:
+		return redirect('homepage')
+	search = Product.objects.filter(Q(name__icontains=query) 
+	# Q(slug__icontains=query)
+	)
+
+
+	try:
+		slug = search.values('slug').first()['slug']
+		product = get_object_or_404(Product, slug=slug)
+		other_product = Product.objects.filter(
+				category=product.category
+			).exclude(id=product.pk).values('slug', 'name').order_by('-id').distinct('id')
+	except:
+		other_product = None
+		# print(other_artikel)
+	context = {
+		'search_product': search,
+		'other_product': other_product,
+	}
+	return render(request, 'store/search.html', context)
+
+def product_display(request, slug):
+	product = get_object_or_404(Product, slug=slug)
+	other_product = Product.objects.filter(
+			category=product.category
+		).exclude(id=product.pk).values('slug', 'name').order_by('-id').distinct('id')
+
+	context = {
+		'search_product': search,
+		'other_product': other_product,
+	}
+	return render(request, 'store/store.html', context)

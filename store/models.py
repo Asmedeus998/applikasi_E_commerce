@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 from uuid import uuid4
+from django.urls import reverse
 # Create your models here.
 
 ROLE = {
 	('buyer', 'buyer'),
-	('seller', 'seller')
+	# ('seller', 'seller')
 }
 
 def get_fileupload_path(instance, filename):
@@ -43,7 +44,7 @@ class Category(models.Model):
 class Product(models.Model):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category', blank=True, null=True)
 	name = models.CharField(max_length=200)
-	# slug = models.CharField(max_length=200, blank=True)
+	slug = models.CharField(max_length=200, blank=True)
 	price = models.FloatField()
 	digital = models.BooleanField(default=False,null=True, blank=True)
 	image = models.ImageField(null=True, blank=True)
@@ -58,6 +59,9 @@ class Product(models.Model):
 		except:
 			url = ''
 		return url
+
+	def get_absolute_url(self):
+		return reverse("product_display", kwargs={'slug' : self.slug,})
 
 class Order(models.Model):
 	transaction_id = models.CharField(max_length=100, null=True)
