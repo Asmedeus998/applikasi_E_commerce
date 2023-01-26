@@ -4,8 +4,8 @@
 
 {% block content %}
     <h2 class="justify-content-center mb-4">History Transaction</h2>
-      <table class="table  table-striped">
-        <thead>
+      <table class="table table-striped table-hover">
+        <thead class="table-dark" style="box-shadow: 8px 2px 5px grey">
           <tr>
             <th scope="col">#</th>
             <th scope="col">Transaction ID</th>
@@ -18,7 +18,7 @@
         </thead>
         <tbody class="table-secondary">
             {% for item in hist %}
-                <tr>
+                <tr style="box-shadow: 8px 2px 5px grey">
                     {% if item. %}{% endif %}
                     <td>
                         {{forloop.counter}}                        
@@ -29,19 +29,28 @@
                     <td>
                         {% for p in item.orderitem_set.all %}
                             <p>
+                                {% if p != item.orderitem_set.all.0 %}
+                                    <hr>
+                                {% endif %}
                                 {{p.product.name}}
                             </p> 
                         {% endfor %}                        
                     </td>
                     <td>
                         {% for p in item.orderitem_set.all %}
-                            <p>
+                            {% if p != item.orderitem_set.all.0 %}
+                            <hr>
+                            {% endif %}
+                            <p style="text-align:center">
                                 {{p.quantity}}
                             </p> 
                         {% endfor %}
                     </td>
                     <td>
                         {% for p in item.orderitem_set.all %}
+                            {% if p != item.orderitem_set.all.0 %}
+                            <hr>
+                            {% endif %}
                             <p>
                                 {{p.product.price}}
                             </p> 
@@ -49,8 +58,11 @@
                     </td>
                     <td>
                         {% for p in item.orderitem_set.all %}
+                            {% if p != item.orderitem_set.all.0 %}
+                            <hr>
+                            {% endif %}
                             <p>
-                                 {{p.get_total}}
+                                {{p.get_total}}
                             </p> 
                             {% endfor %}                        
                     </td>
