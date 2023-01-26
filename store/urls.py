@@ -8,7 +8,9 @@ from store.views import (
     ProfileChange,
     processOrder,
     history_transaction,
-    homepage
+    homepage,
+    search,
+    product_display
 )
 from django.urls import path, include
 urlpatterns = [
@@ -20,5 +22,7 @@ urlpatterns = [
     path('cart_add/', cart_add, name='cart_add'),
     path('process_order/', processOrder, name="process_order"),
     path('history_transaction/', history_transaction, name='history_transaction'),
-    path('homepage/', homepage, name='homepage')
+    path('homepage/', homepage, name='homepage'),
+    path('search/', search, name='search'),
+    path('<slug:slug>', product_display, name='product_display'),
 ]
