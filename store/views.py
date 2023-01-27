@@ -259,6 +259,7 @@ def processOrder(request):
 
 def search(request):
 	query = request.GET.get('q')
+	print(query)
 	if not query:
 		return redirect('homepage')
 	search = Product.objects.filter(Q(name__icontains=query) 
