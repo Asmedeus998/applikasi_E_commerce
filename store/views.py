@@ -151,10 +151,10 @@ def ProfileChange(request):
 		# user_acc = request.user
 		# user = User.objects.get(user=user_acc)
 		# profile_form = CustomerForm(request.POST, instance=obj)
-		profile_form = CustomerForm(request.POST, instance=obj)
+		profile_form = CustomerForm(request.POST, request.FILES or None, instance=obj)
 		if profile_form.is_valid():
 			profile_form.save()
-			return redirect('profile')
+			return redirect('display_profile')
 		else:
 			profile_form = CustomerForm()
 	context = {

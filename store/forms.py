@@ -45,13 +45,16 @@ class CustomerForm(forms.ModelForm):
 		model = Customer
 		# fields = "__all__"
 		fields = [
-			'name', 'email', 
-			'address', 'foto',	
+			'name', 
+			'email', 
+			'address', 
+			'foto',	
 		]
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		# self.helper = FormHelper(self)
 		self.helper = FormHelper()
+		self.fields['role'].required = False
 		self.helper.form_id = 'profileform'
 		self.helper.layout = Layout(
 			'name', 
