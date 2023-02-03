@@ -53,12 +53,17 @@
          <p id="cart-total">{{cartItems}}</p>
         </div>
 
-        {% if user.is_authenticated %}
+        {% url 'account/logout' as logout_url %}
+        {% if logout_url %}
+        {% comment %} <li class="no-bullets"><a href='{% url "account_logout" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-out"></span>Logout</button></a></li> {% endcomment %}
+        {% if user.is_authenticated or logout_url %}
         <li class="no-bullets"><a href='{% url "account_logout" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-out"></span>Logout</button></a></li>
-        {% else %}
+        {% comment %} {% else %} {% endcomment %}
         {% endif %}
         <li class="no-bullets"><a href='{% url "account_signup" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-user"></span>Sign up</button></a></li>
-        <li class="no-bullets"><a href='{% url "account_login" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-in"></span>Log in</button></a></li>
+          <li class="no-bullets"><a href='{% url "account_login" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-in"></span>Log in</button></a></li>
+        {% endif %}
+        
     </nav>
   
        <div class="container">
