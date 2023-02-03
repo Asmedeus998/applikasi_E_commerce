@@ -38,7 +38,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'homepage' %}">Store <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'homepage' %}">Home <span class="sr-only">(current)</span></a>
             </li>       
             {% if user.is_authenticated %}
             <li class="nav-item active">
@@ -57,7 +57,7 @@
         {% if user.is_authenticated %}
         <form action = "{% url 'search' %}" class="d-flex" method="GET">
           <input class="form-control me-2" name="q" type="search" placeholder="Search" >
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <button class="btn btn-outline-light rounded me-5" type="submit">Search</button>
         </form>
         <li class="no-bullets"><a href='{% url "account_logout" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-out"></span>Logout</button></a></li>
        {% else %}
