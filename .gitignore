@@ -1,9 +1,9 @@
-.vscode
+/.vscode
 venv
-db.sqlite3
+/db.sqlite3
 *.pyc
 /media
-__pycache__/
+/__pycache__/
 *.sqlite3
-store/__pycache__/urls.cpython-38.pyc
-store/__pycache__/*
+/store/__pycache__/urls.cpython-38.pyc
+/store/__pycache__/*

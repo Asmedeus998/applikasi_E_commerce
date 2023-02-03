@@ -60,7 +60,7 @@
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         <li class="no-bullets"><a href='{% url "account_logout" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-out"></span>Logout</button></a></li>
-        {% else %}
+       {% else %}
         <li class="no-bullets"><a href='{% url "account_signup" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-user"></span>Sign up</button></a></li>
         <li class="no-bullets"><a href='{% url "account_login" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-in"></span>Log in</button></a></li>
         {% endif %}
