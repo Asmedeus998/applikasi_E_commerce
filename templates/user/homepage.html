@@ -2,6 +2,9 @@
 {% block content %}
 {% comment %} {% load static %}
 <link href="{% static 'media/css/homepage.css' %}" rel="stylesheet" type="text/css"> {% endcomment %}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <style>
     body {
         background: #e2eaef;
@@ -94,78 +97,289 @@
         font-size: 13px;
         padding: 2px 0;
     }
+    .carousel .item-price strike {
+        opacity: 0.7;
+        margin-right: 5px;
+    }
+    .carousel-control-prev, .carousel-control-next {
+        height: 44px;
+        width: 40px;
+        background: #7ac400;	
+        margin: auto 0;
+        border-radius: 4px;
+        opacity: 0.8;
+    }
+    .carousel-control-prev:hover, .carousel-control-next:hover {
+        background: #78bf00;
+        opacity: 1;
+    }
+    .carousel-control-prev i, .carousel-control-next i {
+        font-size: 36px;
+        position: absolute;
+        top: 50%;
+        display: inline-block;
+        margin: -19px 0 0 0;
+        z-index: 5;
+        left: 0;
+        right: 0;
+        color: #fff;
+        text-shadow: none;
+        font-weight: bold;
+    }
+    .carousel-control-prev i {
+        margin-left: -2px;
+    }
+    .carousel-control-next i {
+        margin-right: -4px;
+    }		
+    .carousel-indicators {
+        bottom: -50px;
+    }
+    .carousel-indicators li, .carousel-indicators li.active {
+        width: 10px;
+        height: 10px;
+        margin: 4px;
+        border-radius: 50%;
+        border: none;
+    }
+    .carousel-indicators li {	
+        background: rgba(0, 0, 0, 0.2);
+    }
+    .carousel-indicators li.active {	
+        background: rgba(0, 0, 0, 0.6);
+    }
 </style>
-    {% if user.is_authenticated %}
-        {% if recommended_products != none %}
-            <div class="container-xl">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Recommended <b>For You</b></h2>
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
-                        <div class="carousel-inner">
-                            <div class="item carousel-item active">
-                                <div class="row">
-                                    {% for product in recommended_products %}
-                                    <div class="col-sm-3">
-                                        <div class="thumb-wrapper">
-                                            <div class="img-box">
-                                                <img src="{{product.imageURL}}" class="img-fluid" alt="">									
+{% if user.is_authenticated %}
+    {% if recommended_products != none %}
+        <div class="container-xl">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Recomended For <b>You</b></h2>
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+                    <!-- Carousel indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        {% if recommended_products.count > 4 and recommended_products.count <= 8%}
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        {% endif %}
+                        {% if recommended_products.count > 8%}
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        {% endif %}
+                    </ol>   
+                    <!-- Wrapper for carousel items -->
+                    <div class="carousel-inner">
+                        <div class="item carousel-item active">
+                            <div class="row">
+                                {% for product in recommended_products %}
+                                {% comment %} Card {% endcomment %}
+                                {% if forloop.counter < 5 %}
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="{{product.imageURL}}" class="img-fluid" alt="">									
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>{{product.name}}</h4>									
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                </ul>
                                             </div>
-                                            <div class="thumb-content">
-                                                <h4>{{product.name}}</h4>									
-                                                <div class="star-rating">
-                                                    <ul class="list-inline">
-                                                    </ul>
-                                                </div>
-                                                <p class="item-price"><b>{{product.price}}</b></p>
-                                                {% csrf_token %}
-                                                <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                                            </div>						
-                                        </div>
+                                            <p class="item-price"><b>{{product.price}}</b></p>
+                                            {% csrf_token %}
+                                            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                                        </div>						
                                     </div>
-                                    {% endfor %}   
                                 </div>
+                                {% endif %}
+                                {% comment %} Card {% endcomment %}	
+                                {% endfor %}							
                             </div>
                         </div>
-                    </div>
-                    </div>
-                </div>
-            </div>            
-        {% endif %}
-    {% endif %}
-
-    <div class="container-xl">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Featured <b>Products</b></h2>
-                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
-                <div class="carousel-inner">
-                    <div class="item carousel-item active">
-                        <div class="row">
-                            {% for product in products %}
-                            <div class="col-sm-3">
-                                <div class="thumb-wrapper">
-                                    <div class="img-box">
-                                        <img src="{{product.imageURL}}" class="img-fluid" alt="">									
-                                    </div>
-                                    <div class="thumb-content">
-                                        <h4>{{product.name}}</h4>									
-                                        <div class="star-rating">
-                                            <ul class="list-inline">
-                                            </ul>
+                        {% if products.count > 4 and products.count <= 8%}
+                        <div class="item carousel-item">
+                            <div class="row">
+                                {% for product in recommended_products %}
+                                {% comment %} Card {% endcomment %}
+                                {% if forloop.counter >= 5 and forloop.counter < 9 %}
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="{{product.imageURL}}" class="img-fluid" alt="">									
                                         </div>
-                                        <p class="item-price"><b>{{product.price}}</b></p>
-                                        {% csrf_token %}
-                                        <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                                    </div>						
+                                        <div class="thumb-content">
+                                            <h4>{{product.name}}</h4>									
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                </ul>
+                                            </div>
+                                            <p class="item-price"><b>{{product.price}}</b></p>
+                                            {% csrf_token %}
+                                            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                                        </div>						
+                                    </div>
                                 </div>
+                                {% endif %}
+                                {% comment %} Card {% endcomment %}	
+                                {% endfor %}							
                             </div>
-                            {% endfor %}   
                         </div>
+                        {% endif %}
+                        {% if products.count > 8 %}
+                        <div class="item carousel-item">
+                            <div class="row">
+                                {% for product in recommended_products %}
+                                {% comment %} Card {% endcomment %}
+                                {% if forloop.counter >= 9 and forloop.counter < 14 %}
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="{{product.imageURL}}" class="img-fluid" alt="">									
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>{{product.name}}</h4>									
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                </ul>
+                                            </div>
+                                            <p class="item-price"><b>{{product.price}}</b></p>
+                                            {% csrf_token %}
+                                            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                                        </div>						
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% comment %} Card {% endcomment %}	
+                                {% endfor %}							
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
+                    <!-- Carousel controls -->
+                    <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 </div>
-            </div>
+                </div>
             </div>
         </div>
+    {% endif %}
+{% endif %}
+
+<div class="container-xl">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Featured <b>Products</b></h2>
+            <div id="myCarousel1" class="carousel slide" data-ride="carousel" data-interval="0">
+            <!-- Carousel indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel1" data-slide-to="0" class="active"></li>
+                {% if products.count > 4 and products.count <= 8%}
+                <li data-target="#myCarousel1" data-slide-to="1"></li>
+                {% endif %}
+                {% if products.count > 8%}
+                <li data-target="#myCarousel1" data-slide-to="2"></li>
+                {% endif %}
+            </ol>   
+            <!-- Wrapper for carousel items -->
+            <div class="carousel-inner">
+                <div class="item carousel-item active">
+                    <div class="row">
+                        {% for product in products %}
+                        {% comment %} Card {% endcomment %}
+                        {% if forloop.counter < 5 %}
+                        <div class="col-sm-3">
+                            <div class="thumb-wrapper">
+                                <div class="img-box">
+                                    <img src="{{product.imageURL}}" class="img-fluid" alt="">									
+                                </div>
+                                <div class="thumb-content">
+                                    <h4>{{product.name}}</h4>									
+                                    <div class="star-rating">
+                                        <ul class="list-inline">
+                                        </ul>
+                                    </div>
+                                    <p class="item-price"><b>{{product.price}}</b></p>
+                                    {% csrf_token %}
+                                    <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                                </div>						
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% comment %} Card {% endcomment %}	
+                        {% endfor %}							
+                    </div>
+                </div>
+                {% if products.count > 4 and products.count <= 8%}
+                <div class="item carousel-item">
+                    <div class="row">
+                        {% for product in products %}
+                        {% comment %} Card {% endcomment %}
+                        {% if forloop.counter >= 5 and forloop.counter < 9 %}
+                        <div class="col-sm-3">
+                            <div class="thumb-wrapper">
+                                <div class="img-box">
+                                    <img src="{{product.imageURL}}" class="img-fluid" alt="">									
+                                </div>
+                                <div class="thumb-content">
+                                    <h4>{{product.name}}</h4>									
+                                    <div class="star-rating">
+                                        <ul class="list-inline">
+                                        </ul>
+                                    </div>
+                                    <p class="item-price"><b>{{product.price}}</b></p>
+                                    {% csrf_token %}
+                                    <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                                </div>						
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% comment %} Card {% endcomment %}	
+                        {% endfor %}							
+                    </div>
+                </div>
+                {% endif %}
+                {% if products.count > 8 %}
+                <div class="item carousel-item">
+                    <div class="row">
+                        {% for product in products %}
+                        {% comment %} Card {% endcomment %}
+                        {% if forloop.counter >= 9 and forloop.counter < 14 %}
+                        <div class="col-sm-3">
+                            <div class="thumb-wrapper">
+                                <div class="img-box">
+                                    <img src="{{product.imageURL}}" class="img-fluid" alt="">									
+                                </div>
+                                <div class="thumb-content">
+                                    <h4>{{product.name}}</h4>									
+                                    <div class="star-rating">
+                                        <ul class="list-inline">
+                                        </ul>
+                                    </div>
+                                    <p class="item-price"><b>{{product.price}}</b></p>
+                                    {% csrf_token %}
+                                    <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                                </div>						
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% comment %} Card {% endcomment %}	
+                        {% endfor %}							
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <!-- Carousel controls -->
+            <a class="carousel-control-prev" href="#myCarousel1" data-slide="prev">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel1" data-slide="next">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+        </div>
     </div>
+</div>
 {% endblock content %}

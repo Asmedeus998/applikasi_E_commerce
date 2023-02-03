@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lawn Ecommerce</title>
-
     <!-- Script jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <!-- Boostrap -->
@@ -60,10 +59,10 @@
           <input class="form-control me-2" name="q" type="search" placeholder="Search" >
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
-        <li><a href='{% url "account_logout" %}'><span class="glyphicon glyphicon-log-out"></span> &nbsp; Logout</a></li>
-        {% else %}
-        <li><a href='{% url "account_signup" %}'><span class="glyphicon glyphicon-user"></span> &nbsp; Sign up</a></li>
-        <li><a href='{% url "account_login" %}'><span class="glyphicon glyphicon-log-in"></span> &nbsp; Log in</a></li>
+        <li class="no-bullets"><a href='{% url "account_logout" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-out"></span>Logout</button></a></li>
+       {% else %}
+        <li class="no-bullets"><a href='{% url "account_signup" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-user"></span>Sign up</button></a></li>
+        <li class="no-bullets"><a href='{% url "account_login" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-in"></span>Log in</button></a></li>
         {% endif %}
     </nav>
   

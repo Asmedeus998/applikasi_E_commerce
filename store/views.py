@@ -258,6 +258,8 @@ def processOrder(request):
 
 
 def search(request):
+	data = cartData(request)
+	cartItems = data['cartItems']
 	query = request.GET.get('q')
 	print(query)
 	if not query:
@@ -279,10 +281,14 @@ def search(request):
 	context = {
 		'search_product': search,
 		'other_product': other_product,
+		'cartItems':cartItems
 	}
 	return render(request, 'store/search.html', context)
 
 def product_display(request, slug):
+	data = cartData(request)
+	cartItems = data['cartItems']
+
 	product = get_object_or_404(Product, slug=slug)
 	other_product = Product.objects.filter(
 			category=product.category
@@ -291,5 +297,6 @@ def product_display(request, slug):
 	context = {
 		'search_product': search,
 		'other_product': other_product,
+		'cartItems':cartItems
 	}
 	return render(request, 'store/store.html', context)
