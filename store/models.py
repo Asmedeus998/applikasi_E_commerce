@@ -22,7 +22,7 @@ class Customer(models.Model):
 	email = models.CharField(max_length=200)
 	address = models.CharField(max_length=100, null=True, blank=True)
 	foto = models.ImageField(
-		upload_to=get_fileupload_path, null=True, blank=True
+		upload_to=get_fileupload_path, null=True, blank=True, default="../../../static/admin/img/login.webp"
 	)
 	role = models.CharField(max_length=20, choices=ROLE, null=True)
 	class Meta:
