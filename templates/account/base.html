@@ -55,14 +55,21 @@
 
         {% url 'account/logout' as logout_url %}
         {% if logout_url %}
-        {% comment %} <li class="no-bullets"><a href='{% url "account_logout" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-out"></span>Logout</button></a></li> {% endcomment %}
-        {% if user.is_authenticated or logout_url %}
+        {% if user.is_authenticated %}
+        {% endif %}
+        {% endif %}
         <li class="no-bullets"><a href='{% url "account_logout" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-out"></span>Logout</button></a></li>
-        {% comment %} {% else %} {% endcomment %}
-        {% endif %}
-        <li class="no-bullets"><a href='{% url "account_signup" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-user"></span>Sign up</button></a></li>
+
+        
+        {% comment %} {% url 'http://127.0.0.1:8000/accounts/signup/' as signup_url %} {% endcomment %}
+        {% if user.is_anonymous %}
+          {% comment %} <li class="no-bullets"><a href='{% url "account_logout" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-out"></span>Logout</button></a></li> {% endcomment %}
+          <li class="no-bullets"><a href='{% url "account_signup" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-user"></span>Sign up</button></a></li>
           <li class="no-bullets"><a href='{% url "account_login" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-in"></span>Log in</button></a></li>
+          {% else %}
         {% endif %}
+        
+        {% comment %} {% endif %} {% endcomment %}
         
     </nav>
   

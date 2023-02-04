@@ -16,7 +16,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
-
+from django.http import HttpResponseRedirect
 @login_required
 def homepage(request):
 
@@ -74,8 +74,13 @@ def homepage(request):
 		}
 
 	return render(request, 'user/homepage.html', context)
+
+
 # Create your views here.
 def store(request):
+	if(request.user.is_authenticated):
+        # print('user authenticated')
+		return HttpResponseRedirect('store/homepage/')
 	data = cartData(request)
 	cartItems = data['cartItems']
 	products = Product.objects.all()
