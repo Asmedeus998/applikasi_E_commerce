@@ -7,6 +7,7 @@ from django import forms
 from .models import Customer, ROLE
 from crispy_forms.helper import FormHelper
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 
 class CustomSignupForm(SignupForm):
 
@@ -71,4 +72,7 @@ class CustomerForm(forms.ModelForm):
             )
 		)
 	def save(self, *args, **kwargs):
-		return super().save(*args, **kwargs)
+		return( super().save(*args, **kwargs), HttpResponseRedirect('user/display_profile/'))
+		
+		
+		

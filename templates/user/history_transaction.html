@@ -52,7 +52,7 @@
                             <hr>
                             {% endif %}
                             <p>
-                                {{p.product.price}}
+                                IDR {{p.product.price|floatformat:2}}
                             </p> 
                         {% endfor %}
                     </td>
@@ -62,12 +62,12 @@
                             <hr>
                             {% endif %}
                             <p>
-                                {{p.get_total}}
+                                IDR {{p.get_total|floatformat:2}}
                             </p> 
                             {% endfor %}                        
                     </td>
                     <td>
-                        {{item.get_cart_total}}
+                        IDR {{item.get_cart_total|floatformat:2}}
                     </td>
                 </tr>
             {% endfor %}
