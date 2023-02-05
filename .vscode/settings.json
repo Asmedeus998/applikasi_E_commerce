@@ -1,4 +1,5 @@
 {
     "python.analysis.typeCheckingMode": "off",
-    "vscode-pets.throwBallWithMouse": true
+    "vscode-pets.throwBallWithMouse": true,
+    "emmet.triggerExpansionOnTab": true
 }
