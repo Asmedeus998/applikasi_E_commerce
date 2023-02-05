@@ -47,8 +47,18 @@ def cartData(request):
 		# print(customer)
 		order, created = Order.objects.get_or_create(customer=customer, complete=False)
 		# print(order)
-		items = order.orderitem_set.all()
+		items = order.orderitem_set.all().order_by('-id')
 		cartItems = order.get_cart_items
+
+		# if Item quantity 0 delete the item
+		items.filter(quantity__lte=0).delete()
+		# print(cartItems)
+		# for item in items:
+		# 	if item.quantity <= 0:
+		# 		print(items.filter(quantity__lte=0))
+
+			# print(item.quantity)
+		
 	else:
 		cookieData = cookieCart(request)
 		cartItems = cookieData['cartItems']

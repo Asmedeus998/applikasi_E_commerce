@@ -58,7 +58,7 @@
         {% if user.is_authenticated %}
         {% endif %}
         {% endif %}
-        <li class="no-bullets"><a href='{% url "account_logout" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-out"></span>Logout</button></a></li>
+        {% comment %} <li class="no-bullets"><a href='{% url "account_logout" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-out"></span>Logout</button></a></li> {% endcomment %}
 
         
         {% comment %} {% url 'http://127.0.0.1:8000/accounts/signup/' as signup_url %} {% endcomment %}
