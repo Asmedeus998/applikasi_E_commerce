@@ -178,7 +178,7 @@ ACCOUNT_EMAIL_VERIFICATION  = 'mandatory'
 # ACCOUNT_SIGNUP_REDIRECT_URL = '/store/profile/'
 
 # put this import local settings on the bottom
-try:
-    from applikasi_E_commerce.local_settings import * 
-except ImportError:
-    pass
+# try:
+#     from applikasi_E_commerce.local_settings import * 
+# except ImportError:
+#     pass
