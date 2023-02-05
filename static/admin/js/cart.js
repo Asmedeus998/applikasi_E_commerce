@@ -28,6 +28,7 @@ function updateUserOrder(productId, action){
 			contentType: 'application/json',
 			data:JSON.stringify(obj),
 			
+			
 			/* sendingn in form  */
 			// contentType: 'multipart/form-data',
 			// data: {

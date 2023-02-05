@@ -23,6 +23,16 @@
 
 
 </head>
+<style>
+  .navbar{
+    padding: 8px 12px!important;
+  }
+    
+  .no-bullets {
+      list-style-type: none;
+    margin-right: 2%;
+  }
+</style>
     <body>
       {% if user.is_authenticated %}
       <nav class="navbar navbar-expand-lg navbar-dark bg-green">
@@ -44,32 +54,23 @@
               <a class="nav-link" href="{% url 'profile' %}">Profile </a>
             </li>
             {% endif %}  {% endcomment %}
-              
+            
           </ul>
-          
+        {% if  request.get_full_path != "/accounts/logout/" and request.get_full_path != "/accounts/login/" and request.get_full_path != "/accounts/signup/" and request.get_full_path != "/accounts/confirm-email/"  %}
           <a href="{% url 'cart' %}">
              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
          </a>
          <p id="cart-total">{{cartItems}}</p>
+         {% endif %}
         </div>
 
-        {% url 'account/logout' as logout_url %}
-        {% if logout_url %}
-        {% if user.is_authenticated %}
-        {% endif %}
-        {% endif %}
-        {% comment %} <li class="no-bullets"><a href='{% url "account_logout" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-out"></span>Logout</button></a></li> {% endcomment %}
-
-        
-        {% comment %} {% url 'http://127.0.0.1:8000/accounts/signup/' as signup_url %} {% endcomment %}
         {% if user.is_anonymous %}
-          {% comment %} <li class="no-bullets"><a href='{% url "account_logout" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-out"></span>Logout</button></a></li> {% endcomment %}
-          <li class="no-bullets"><a href='{% url "account_signup" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-user"></span>Sign up</button></a></li>
-          <li class="no-bullets"><a href='{% url "account_login" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-in"></span>Log in</button></a></li>
-          {% else %}
+        <li class="no-bullets"><a href='{% url "account_signup" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-user"></span>Sign up</button></a></li>
+        <li class="no-bullets"><a href='{% url "account_login" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-in"></span>Log in</button></a></li>
+        {% else %}
+        <li class="no-bullets"><a href='{% url "account_logout" %}'><button type="button" class="btn btn-outline-light rounded"><span class="glyphicon glyphicon-log-out"></span>Logout</button></a></li>
         {% endif %}
         
-        {% comment %} {% endif %} {% endcomment %}
         
     </nav>
   

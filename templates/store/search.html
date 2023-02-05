@@ -114,11 +114,7 @@
                     </div>
                     <div class="thumb-content">
                         <h4>{{product.name}}</h4>									
-                        <div class="star-rating">
-                            <ul class="list-inline">
-                            </ul>
-                        </div>
-                        <p class="item-price"><b>{{product.price}}</b></p>
+                        <p class="item-price"><b>IDR {{product.price|floatformat:2}}</b></p>
                         {% csrf_token %}
                         <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
                     </div>						
