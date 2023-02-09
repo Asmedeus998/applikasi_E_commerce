@@ -49,7 +49,7 @@ class CustomerForm(forms.ModelForm):
 			'name', 
 			'email', 
 			'address', 
-			'foto',	
+			'photo',	
 		]
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -62,7 +62,7 @@ class CustomerForm(forms.ModelForm):
 			'email', 
 			# 'date_of_birth', 
 			'address',  
-			'foto', 
+			'photo', 
 			ButtonHolder(
                 Submit(
                     'submit', 'Save',
