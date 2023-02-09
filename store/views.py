@@ -147,7 +147,7 @@ def ProfileView(request):
 
 def ProfileChange(request):
 	obj, created = Customer.objects.get_or_create(user=request.user)
-	profile_form = CustomerForm()
+	profile_form = CustomerForm(instance =obj)
 	data = cartData(request)
 	cartItems = data['cartItems']
 
