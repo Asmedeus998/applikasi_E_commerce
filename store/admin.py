@@ -4,8 +4,8 @@ from .models import *
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'name', 'role', 'email', 'address', 'foto']
-    list_editable = ['name', 'role', 'email', 'address', 'foto']
+    list_display = ['id', 'user', 'name', 'role', 'email', 'address', 'photo']
+    list_editable = ['name', 'role', 'email', 'address', 'photo']
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
