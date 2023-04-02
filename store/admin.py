@@ -29,3 +29,7 @@ class OrderItemAdmin(admin.ModelAdmin):
 @admin.register(ShippingAddress)
 class ShippingAddressAdmin(admin.ModelAdmin):
     list_display = ['id', 'customer', 'order', 'address', 'city', 'state', 'zipcode', 'date_added']
+
+@admin.register(History_Product)
+class History_ProductAdmin(admin.ModelAdmin):
+    list_display = ['id', 'product', 'price', 'record_item', 'created', 'modifier']
