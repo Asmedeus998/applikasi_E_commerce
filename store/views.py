@@ -173,10 +173,12 @@ def history_transaction(request):
 	data = cartData(request)
 	cartItems = data['cartItems']
 
-	hist = Order.objects.filter(customer=request.user.customer, complete=True).order_by('-transaction_id')
+	hist = Order.objects.filter(customer=request.user.customer, complete=True).order_by('transaction_id')
+	product_history = History_Product.objects.all()
 	context ={
 		'hist':hist,
-		'cartItems':cartItems
+		'cartItems':cartItems,
+		"product_history":product_history,
 	}
 	return render(request, 'user/history_transaction.html', context)
 
@@ -193,17 +195,26 @@ def cart_add(request):
 		obj, created =  Order.objects.get_or_create(customer=customer, complete=False)
 		# print(obj)
 		item = OrderItem.objects.get_or_create(product_id=data['productId'], order=obj)
-		# print(item)
+
 		if data['action'] == 'add':
-			add = OrderItem.objects.get(product_id=data['productId'], order=obj)
+			item = OrderItem.objects.get(product_id=data['productId'], order=obj)
 			add_quantity = 1
-			add.quantity += add_quantity
-			add.save()
+			item.quantity += add_quantity
+			item.save()
 		elif data['action'] =='remove':
-			sub = OrderItem.objects.get(product_id=data['productId'], order=obj)
+			item = OrderItem.objects.get(product_id=data['productId'], order=obj)
 			sub_quantity = 1
-			sub.quantity -= sub_quantity
-			sub.save()
+			item.quantity -= sub_quantity
+			item.save()
+
+		#     # Create a new history record for the product
+		product = Product.objects.get(id=data['productId'])
+		history_product = History_Product.objects.get_or_create(
+			product_id=data['productId'],
+			record_transaction=obj,
+			record_item=item,
+			price=product.price,  # Use the current price of the product
+		)
 		return JsonResponse({'success': True, 'data': data})
 		# return JsonResponse({'success': True,})
 

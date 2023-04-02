@@ -79,6 +79,11 @@ class Order(models.Model):
 	def get_cart_total(self):
 		total = sum([item.get_total for item in self.orderitem_set.all()])
 		return total
+	
+	@property
+	def get_cart_record(self):
+		total = sum([item.get_total_history for item in self.record_transaction.all()])
+		return total
 
 
 	@property
@@ -86,10 +91,13 @@ class Order(models.Model):
 		orderitems = self.orderitem_set.all()
 		total = sum([item.quantity for item in orderitems])
 		return total 
+	
+
 
 class OrderItem(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
 	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+	# history_product = models.ForeignKey('History_Product', on_delete=models.SET_NULL, null=True, blank=True)
 	quantity = models.IntegerField(default=0, null=True, blank=True)
 	date_added = models.DateTimeField(auto_now_add=True)
 
@@ -98,6 +106,17 @@ class OrderItem(models.Model):
 		if self.quantity is None or self.product.price is None:
 			return 0
 		total = self.product.price * self.quantity
+		return total
+	
+	@property
+	def get_total_history(self):
+		if self.quantity is None or self.record_item is None:
+			return 0
+		# print(dir(self.record_item.all))
+
+		# total = self.record_transaction * self.quantity
+		total = self.record_item
+		# print(total)
 		return total
 
 class ShippingAddress(models.Model):
@@ -111,3 +130,21 @@ class ShippingAddress(models.Model):
 
 	def __str__(self):
 		return self.address
+	
+class History_Product(models.Model):
+	product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product', blank=True, null=True)
+	record_transaction = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='record_transaction', blank=True, null=True)
+	record_item = models.ForeignKey(OrderItem, on_delete=models.CASCADE, related_name='record_item', blank=True, null=True)
+	price = models.FloatField()
+	created = models.DateTimeField(auto_now_add=True)
+	modifier = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.product.name
+
+	@property
+	def get_total_history(self):
+		if self.record_item is None or self.record_item.quantity is None:
+			return 0
+		total = self.price * self.record_item.quantity
+		return total

@@ -103,6 +103,7 @@ DATABASES = {
         'USER': 'skripsi',
         'PASSWORD': 'password',
         'HOST': 'localhost',
+        # 'HOST': 'lawnecommerce.my.id',
         'PORT': 5432,
     }
 }

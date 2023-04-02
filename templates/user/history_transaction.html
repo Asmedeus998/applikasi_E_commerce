@@ -47,27 +47,25 @@
                         {% endfor %}
                     </td>
                     <td>
-                        {% for p in item.orderitem_set.all %}
-                            {% if p != item.orderitem_set.all.0 %}
+                        {% comment %} {% for p in item.orderitem_set.all %} {% endcomment %}
+                        {% for p in item.record_transaction.all %}
+                            {% if p != item.record_transaction.all.0 %}
                             <hr>
                             {% endif %}
                             <p>
-                                IDR {{p.product.price|floatformat:2}}
+                                IDR {{p.price|floatformat:2}}
                             </p> 
                         {% endfor %}
                     </td>
-                    <td>
-                        {% for p in item.orderitem_set.all %}
-                            {% if p != item.orderitem_set.all.0 %}
-                            <hr>
-                            {% endif %}
+                    <td>                    
+                        {% for p in item.record_transaction.all %}
                             <p>
-                                IDR {{p.get_total|floatformat:2}}
+                                IDR {{p.get_total_history|floatformat:2}}
                             </p> 
                             {% endfor %}                        
                     </td>
                     <td>
-                        IDR {{item.get_cart_total|floatformat:2}}
+                        IDR {{item.get_cart_record|floatformat:2}}
                     </td>
                 </tr>
             {% endfor %}
