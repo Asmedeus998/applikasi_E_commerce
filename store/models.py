@@ -43,6 +43,8 @@ class Category(models.Model):
 		ordering=('-name',)
 	def __str__(self):
 		return self.name
+	def get_absolute_url(self):
+		return reverse("product_category", kwargs={'slug' : self.slug,})
 
 class Product(models.Model):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category', blank=True, null=True)
@@ -64,7 +66,7 @@ class Product(models.Model):
 		return url
 
 	def get_absolute_url(self):
-		return reverse("product_display", kwargs={'slug' : self.slug,})
+		return reverse("product_display", args={self.id})
 
 class Order(models.Model):
 	transaction_id = models.CharField(max_length=100, null=True)

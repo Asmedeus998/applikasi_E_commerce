@@ -17,6 +17,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 @login_required
 def homepage(request):
 
@@ -67,29 +68,45 @@ def homepage(request):
 		# print(recommended_products)
 	except:
 		recommended_products = None
+	category = Category.objects.all()
 	context = {
 		'products':products, 
 		'cartItems':cartItems,
-		'recommended_products':recommended_products
+		'recommended_products':recommended_products,
+		'categories':category	
 		}
 
 	return render(request, 'user/homepage.html', context)
 
 
 # Create your views here.
-def store(request):
+def store(request, category_slug=None):
 	if(request.user.is_authenticated):
-        # print('user authenticated')
+		# print('user authenticated')
 		return HttpResponseRedirect('store/homepage/')
 	data = cartData(request)
 	cartItems = data['cartItems']
 	products = Product.objects.all()
 
 
+	paginator = Paginator(products, 3)
+	page = request.GET.get('page', 1)
+
+
+
+	try:
+		products = paginator.page(page)
+	except PageNotAnInteger:
+		products = paginator.page(1)
+	except EmptyPage:
+		products = paginator.page(paginator.num_pages)
+	
+	category_list = Category.objects.all()
 
 	context = {
 		'products':products, 
-		'cartItems':cartItems,		
+		'cartItems':cartItems,
+		'categories':category_list	
 		}
 
 	return render(request, 'store/store.html', context)
@@ -301,18 +318,43 @@ def search(request):
 	}
 	return render(request, 'store/search.html', context)
 
-def product_display(request, slug):
-	data = cartData(request)
-	cartItems = data['cartItems']
+def product_display(request, slug=None):
+	# data = cartData(request)
+	# cartItems = data['cartItems']
 
-	product = get_object_or_404(Product, slug=slug)
-	other_product = Product.objects.filter(
-			category=product.category
-		).exclude(id=product.pk).values('slug', 'name').order_by('-id').distinct('id')
+	# products = get_object_or_404(Product, slug=slug)
+	# other_product = Product.objects.filter(
+	# 		category=product.category
+	# 	).exclude(id=product.pk).values('slug', 'name').order_by('-id').distinct('id')
 
+	categories = Category.objects.all()
+	# category = None
+	products = Product.objects.all()  
+	# product = None
+	if slug:
+		# product = product.objects.all()    
+		
+		category = get_object_or_404(Category, slug=slug)
+		products = products.filter(category=category)
+
+		paginator = Paginator(products, 2)
+
+		page = request.GET.get('page', 1)
+
+
+		try:
+			products = paginator.page(page)
+		except PageNotAnInteger:
+			products = paginator.page(1)
+		except EmptyPage:
+			products = paginator.page(paginator.num_pages)
+	# product = None
 	context = {
-		'search_product': search,
-		'other_product': other_product,
-		'cartItems':cartItems
+		# 'search_product': search,
+		# 'other_product': other_product,
+		# 'cartItems':cartItems,
+		'categories':categories,
+		'products':products,
+		'page': page,
 	}
 	return render(request, 'store/store.html', context)
