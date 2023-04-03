@@ -21,9 +21,12 @@ from store import views as user_view
 from django.contrib.auth import views as auth
 from django.conf import settings
 from django.conf.urls.static import static
+from store.views import *
 urlpatterns = [
     path('', user_view.store, name='store'),
     path('admin/', admin.site.urls),
     path('store/', include('store.urls')),
     path('accounts/', include('allauth.urls')),
+    # path('<slug:category_slug>', store, name='product_category'),
+    path('<slug:slug>', product_display, name='product_category'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, )

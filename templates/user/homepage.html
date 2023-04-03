@@ -269,6 +269,19 @@
 {% endif %}
 
 <div class="container-xl">
+    <div class = "bg-light mt-3">
+        <h2> Categories Product</h2>
+        <ul>
+            <li> <a href= "{% url 'store'  %}"> All Category </a> </li>
+            {% for x in categories %}
+            <li>
+                <a href="{{x.get_absolute_url}}">{{ x.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+<div class="container-xl">
     <div class="row">
         <div class="col-md-12">
             <h2>Featured <b>Products</b></h2>

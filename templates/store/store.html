@@ -209,104 +209,115 @@
 
 
     <div class="container-xl">
+        <div class = "bg-light mt-3">
+            <h2> Categories Product</h2>
+            <ul>
+                <li> <a href= "{% url 'store'  %}"> All Category </a> </li>
+                {% for x in categories %}
+                <li>
+                    <a href="{{x.get_absolute_url}}">{{ x.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
                 <h2>Featured <b>Products</b></h2>
                 <div id="myCarousel1" class="carousel slide" data-ride="carousel" data-interval="0">
-                <!-- Carousel indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel1" data-slide-to="0" class="active"></li>
-                    {% if products.count > 4 and products.count <= 8%}
-                    <li data-target="#myCarousel1" data-slide-to="1"></li>
-                    {% endif %}
-                    {% if products.count > 8%}
-                    <li data-target="#myCarousel1" data-slide-to="2"></li>
-                    {% endif %}
-                </ol>   
-                <!-- Wrapper for carousel items -->
-                <div class="carousel-inner">
-                    <div class="item carousel-item active">
-                        <div class="row">
-                            {% for product in products %}
-                            {% comment %} Card {% endcomment %}
-                            {% if forloop.counter < 5 %}
-                            <div class="col-sm-3">
-                                <div class="thumb-wrapper">
-                                    <div class="img-box">
-                                        <img src="{{product.imageURL}}" class="img-fluid" alt="">									
+                    <!-- Carousel indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel1" data-slide-to="0" class="active"></li>
+                        {% if products.count > 4 and products.count <= 8%}
+                        <li data-target="#myCarousel1" data-slide-to="1"></li>
+                        {% endif %}
+                        {% if products.count > 8%}
+                        <li data-target="#myCarousel1" data-slide-to="2"></li>
+                        {% endif %}
+                    </ol>   
+                    <!-- Wrapper for carousel items -->
+                    <div class="carousel-inner">
+                        <div class="item carousel-item active">
+                            <div class="row">
+                                {% for product in products %}
+
+                                {% if forloop.counter < 5 %}
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="{{product.imageURL}}" class="img-fluid" alt="">									
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>{{product.name}}</h4>									
+                                            <p class="item-price"><b>IDR {{product.price|floatformat:2}}</b></p>
+                                            {% csrf_token %}
+                                            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                                        </div>						
                                     </div>
-                                    <div class="thumb-content">
-                                        <h4>{{product.name}}</h4>									
-                                        <p class="item-price"><b>IDR {{product.price|floatformat:2}}</b></p>
-                                        {% csrf_token %}
-                                        <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                                    </div>						
                                 </div>
+                                {% endif %}
+                                {% endfor %}							
                             </div>
-                            {% endif %}
-                            {% comment %} Card {% endcomment %}	
-                            {% endfor %}							
                         </div>
-                    </div>
-                    {% if products.count > 4 and products.count <= 8%}
-                    <div class="item carousel-item">
-                        <div class="row">
-                            {% for product in products %}
-                            {% comment %} Card {% endcomment %}
-                            {% if forloop.counter >= 5 and forloop.counter < 9 %}
-                            <div class="col-sm-3">
-                                <div class="thumb-wrapper">
-                                    <div class="img-box">
-                                        <img src="{{product.imageURL}}" class="img-fluid" alt="">									
+                        {% if products.count > 4 and products.count <= 8%}
+                        <div class="item carousel-item">
+                            <div class="row">
+                                {% for product in products %}
+                                {% comment %} Card {% endcomment %}
+                                {% if forloop.counter >= 5 and forloop.counter < 9 %}
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="{{product.imageURL}}" class="img-fluid" alt="">									
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>{{product.name}}</h4>									
+                                            <p class="item-price"><b>IDR {{product.price|floatformat:2}}</b></p>
+                                            {% csrf_token %}
+                                            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                                        </div>						
                                     </div>
-                                    <div class="thumb-content">
-                                        <h4>{{product.name}}</h4>									
-                                        <p class="item-price"><b>IDR {{product.price|floatformat:2}}</b></p>
-                                        {% csrf_token %}
-                                        <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                                    </div>						
                                 </div>
+                                {% endif %}
+                                {% comment %} Card {% endcomment %}	
+                                {% endfor %}							
                             </div>
-                            {% endif %}
-                            {% comment %} Card {% endcomment %}	
-                            {% endfor %}							
                         </div>
-                    </div>
-                    {% endif %}
-                    {% if products.count > 8 %}
-                    <div class="item carousel-item">
-                        <div class="row">
-                            {% for product in products %}
-                            {% comment %} Card {% endcomment %}
-                            {% if forloop.counter >= 9 and forloop.counter < 14 %}
-                            <div class="col-sm-3">
-                                <div class="thumb-wrapper">
-                                    <div class="img-box">
-                                        <img src="{{product.imageURL}}" class="img-fluid" alt="">									
+                        {% endif %}
+                        {% if products.count > 8 %}
+                        <div class="item carousel-item">
+                            <div class="row">
+                                {% for product in products %}
+                                {% comment %} Card {% endcomment %}
+                                {% if forloop.counter >= 9 and forloop.counter < 14 %}
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="{{product.imageURL}}" class="img-fluid" alt="">									
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>{{product.name}}</h4>									
+                                            <p class="item-price"><b>IDR {{product.price|floatformat:2}}</b></p>
+                                            {% csrf_token %}
+                                            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                                        </div>						
                                     </div>
-                                    <div class="thumb-content">
-                                        <h4>{{product.name}}</h4>									
-                                        <p class="item-price"><b>IDR {{product.price|floatformat:2}}</b></p>
-                                        {% csrf_token %}
-                                        <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                                    </div>						
                                 </div>
+                                {% endif %}
+                                {% comment %} Card {% endcomment %}	
+                                {% endfor %}							
                             </div>
-                            {% endif %}
-                            {% comment %} Card {% endcomment %}	
-                            {% endfor %}							
                         </div>
+                        {% endif %}
                     </div>
-                    {% endif %}
+                    <!-- Carousel controls -->
+                    <a class="carousel-control-prev" href="#myCarousel1" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#myCarousel1" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 </div>
-                <!-- Carousel controls -->
-                <a class="carousel-control-prev" href="#myCarousel1" data-slide="prev">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-                <a class="carousel-control-next" href="#myCarousel1" data-slide="next">
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
             </div>
         </div>
     </div>
