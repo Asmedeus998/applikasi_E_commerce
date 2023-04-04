@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'star_ratings',
 ]
 
 MIDDLEWARE = [
@@ -176,6 +177,7 @@ EMAIL_USE_SSL = False
 ACCOUNT_FORMS = {'signup': 'store.forms.CustomSignupForm'}
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION  = 'mandatory'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 # ACCOUNT_SIGNUP_REDIRECT_URL = '/store/profile/'
 
 # put this import local settings on the bottom

@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from uuid import uuid4
 from django.urls import reverse
+from star_ratings.models import Rating
+from django.contrib.contenttypes.fields import GenericRelation
 # Create your models here.
 
 ROLE = {
@@ -50,7 +52,9 @@ class Product(models.Model):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category', blank=True, null=True)
 	name = models.CharField(max_length=200)
 	slug = models.CharField(max_length=200, blank=True)
+	desc = models.TextField(null=True, blank=True)
 	price = models.FloatField()
+	rating = GenericRelation(Rating, related_query_name='products')
 	digital = models.BooleanField(default=False,null=True, blank=True)
 	image = models.ImageField(null=True, blank=True)
 

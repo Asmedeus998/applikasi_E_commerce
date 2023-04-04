@@ -1,6 +1,7 @@
 {% extends "account/base.html" %}
 {% load crispy_forms_tags %}
-
+{% load i18n %}
+{% load account socialaccount %}
 {% block content %}
 <div> {% comment %} class="content-section col-md-8 col-md-offset-2" {% endcomment %}
     <center>
@@ -13,8 +14,13 @@
       <button style="background: black; font-size: 2rem; padding:1%;" class="btn btn-outline-info" type="submit"><span class="glyphicon glyphicon-log-in"></span> &nbsp; login</button>
     </center>
     <br/>
+    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
     <sub style="text-align: left;"><a href="{% url 'account_signup' %}" style="text-decoration: none; color: blue; padding:2%; cursor:pointer; margin-right:2%;">don't have account,sign up</a></sub>
-    </form>
+  </form>
+  <a href="/../admin/">Go to admin page</a>
+
+
+
   </center>
    </div>
   

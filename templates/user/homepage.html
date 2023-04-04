@@ -1,4 +1,5 @@
 {% extends 'user/main_homepage.html' %}
+{% load ratings %}
 {% block content %}
 {% comment %} {% load static %}
 <link href="{% static 'media/css/homepage.css' %}" rel="stylesheet" type="text/css"> {% endcomment %}
@@ -148,6 +149,9 @@
     .carousel-indicators li.active {	
         background: rgba(0, 0, 0, 0.6);
     }
+    .star-ratings-rating-average, .star-ratings-rating-count, .star-ratings-rating-user {
+        display: none;
+    }   
 </style>
 {% if user.is_authenticated %}
     {% if recommended_products != none %}
@@ -316,6 +320,10 @@
                                     </div>
                                     <p class="item-price"><b>IDR {{product.price|floatformat:2}}</b></p>
                                     {% csrf_token %}
+                                    <p>
+                                        <span class="text-dark"><strong>{% ratings product read_only=True icon_height=16 icon_width=16  %}</strong></span>
+                                    </p>
+                                    <a class="btn btn-outline-success" href="{% url 'product_detail' product.id %}">View Detail</a>
                                     <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
                                 </div>						
                             </div>
@@ -344,6 +352,10 @@
                                     </div>
                                     <p class="item-price"><b>IDR {{product.price|floatformat:2}}</b></p>
                                     {% csrf_token %}
+                                    <p>
+                                        <span class="text-dark"><strong>{% ratings product read_only=True icon_height=16 icon_width=16  %}</strong></span>
+                                    </p>
+                                    <a class="btn btn-outline-success" href="{% url 'product_detail' product.id %}">View Detail</a>
                                     <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
                                 </div>						
                             </div>
@@ -373,7 +385,12 @@
                                     </div>
                                     <p class="item-price"><b>IDR {{product.price|floatformat:2}}</b></p>
                                     {% csrf_token %}
+                                    <p>
+                                        <span class="text-dark"><strong>{% ratings product read_only=True icon_height=16 icon_width=16  %}</strong></span>
+                                    </p>
+                                    <a class="btn btn-outline-success" href="{% url 'product_detail' product.id %}">View Detail</a>
                                     <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                                    test
                                 </div>						
                             </div>
                         </div>
