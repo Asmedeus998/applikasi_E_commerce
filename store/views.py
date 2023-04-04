@@ -103,6 +103,19 @@ def store(request, category_slug=None):
 	
 	category_list = Category.objects.all()
 
+	paginator = Paginator(products, 3)
+	page = request.GET.get('page', 1)
+
+
+
+	try:
+		products = paginator.page(page)
+	except PageNotAnInteger:
+		products = paginator.page(1)
+	except EmptyPage:
+		products = paginator.page(paginator.num_pages)
+	
+	category_list = Category.objects.all()
 	context = {
 		'products':products, 
 		'cartItems':cartItems,
@@ -358,3 +371,10 @@ def product_display(request, slug=None):
 		'page': page,
 	}
 	return render(request, 'store/store.html', context)
+
+def product_detail(request, id):
+	product = get_object_or_404(Product, id=id)
+	context = {
+		'product':product,
+	}
+	return render(request, 'store/product_detail.html', context)

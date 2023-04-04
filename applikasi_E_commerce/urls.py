@@ -22,11 +22,19 @@ from django.contrib.auth import views as auth
 from django.conf import settings
 from django.conf.urls.static import static
 from store.views import *
+
+# from django.contrib.auth.decorators import login_required
+# from django.contrib import admin
+# admin.autodiscover()
+# admin.site.login = login_required(admin.site.login)
+
 urlpatterns = [
     path('', user_view.store, name='store'),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='my_admin'),
     path('store/', include('store.urls')),
     path('accounts/', include('allauth.urls')),
     # path('<slug:category_slug>', store, name='product_category'),
     path('<slug:slug>', product_display, name='product_category'),
+    path('detail/<int:id>/', product_detail, name='product_detail'),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, )
